@@ -12,9 +12,10 @@ sleep 1
 echo $! > .pidfile
 set +x
 
-echo '=== [Deploy Stage] Verifikasi aplikasi berjalan di http://localhost:5050 ==='
+echo '=== [Deploy Stage] Verifikasi aplikasi berjalan di Localhost (port 5050) & Cloud Render.com ==='
 set -x
 curl -s http://localhost:5050/health || true
+curl -s https://submission-cicd-irfx-programmer.onrender.com/health || true
 set +x
 
 echo 'Aplikasi Python Web telah berhasil di-deploy (PID: '$(cat .pidfile)').'
