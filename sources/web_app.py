@@ -230,13 +230,13 @@ class CalcRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(body)
             return
 
-        html = HTML_TEMPLATE.format(
-            val_a=val_a,
-            val_b=val_b,
-            result=computed,
-            result_type=type(computed).__name__,
-            hostname=socket.gethostname(),
-            timestamp=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+        html = (
+            HTML_TEMPLATE.replace("{val_a}", str(val_a))
+            .replace("{val_b}", str(val_b))
+            .replace("{result}", str(computed))
+            .replace("{result_type}", type(computed).__name__)
+            .replace("{hostname}", socket.gethostname())
+            .replace("{timestamp}", datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"))
         )
         body = html.encode("utf-8")
         self.send_response(200)
