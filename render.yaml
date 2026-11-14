@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: submission-cicd-irfx-programmer
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: python3 -m py_compile sources/add2vals.py sources/calc.py sources/web_app.py
+    startCommand: python3 sources/web_app.py
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
